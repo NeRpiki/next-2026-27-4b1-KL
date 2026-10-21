@@ -1,0 +1,32 @@
+import { redirect } from 'next/navigation';
+
+async function submitContact(formData) {
+  'use server';
+
+  const name = formData.get('name');
+  const email = formData.get('email');
+
+  console.log('Dane:', { name, email });
+
+  // Automatyczne przekierowanie po zapisaniu
+  redirect('/dziekujemy');
+}
+
+export default function ContactPage() {
+  return (
+    <main style={{ padding: '2rem' }}>
+      <h1>Kontakt</h1>
+      <form action={submitContact}>
+        <div>
+          <label htmlFor="name">Imię</label>
+          <input id="name" name="name" type="text" required />
+        </div>
+        <div>
+          <label htmlFor="email">E-mail</label>
+          <input id="email" name="email" type="email" required />
+        </div>
+        <button type="submit">Wyślij i przekieruj</button>
+      </form>
+    </main>
+  );
+}
